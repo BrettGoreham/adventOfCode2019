@@ -12,7 +12,7 @@ public class Day6 {
 
 
     public static void main (String[] args) throws Exception {
-        Scanner scanner = new Scanner(new FileReader(exampleFilePart2));
+        Scanner scanner = new Scanner(new FileReader(inputFile));
 
         Tree<String> tree = new Tree<>();
         HashMap<String, Tree.Node> nodes = new HashMap<>();
@@ -45,15 +45,15 @@ public class Day6 {
 
         if(node1 != null && node2 != null) {
             Set<Tree.Node> set1 = findTotalOrbitSetOfANode(node1);
-            Set<Tree.Node> copyOfSet1 = findTotalOrbitSetOfANode(node1);
             Set<Tree.Node> set2 = findTotalOrbitSetOfANode(node2);
+            int sizeOfSet1 = set1.size();
+            int sizeOfSet2 = set2.size();
 
-            set1.removeAll(set2);
-            set2.removeAll(copyOfSet1);
-            //In my mind it was easier to calculate
-            //the number of hops each would have to take to get to the first node they have in common
-            //this would be all the nodes they dont have in common above them
-            System.out.println("Number Of Hops to unit " + x + " and " + y + ": " + (set1.size() + set2.size()));
+            set1.retainAll(set2);
+            int sizeOfIntersection = set1.size();
+            int numOfHopsBetween = sizeOfSet1 + sizeOfSet2 - (2*sizeOfIntersection);
+
+            System.out.println("Number Of Hops to unit " + x + " and " + y + ": " + numOfHopsBetween);
         } else {
             System.out.println("One node of : " + x + " or " + y + " Not Found");
         }

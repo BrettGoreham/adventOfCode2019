@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4a59a80-4dc3-4c15-ab93-ac409bf578bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/day6/Day6.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/day6/day6Example.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/day6/day6ExamplePart2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/day6/day6Input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/day3TestInput.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/img.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/day3TestInput.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/img.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/day6/Day6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/day6/Day6.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -85,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/day6/Day6.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1489">
-              <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+            <state relative-caret-position="293">
+              <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3376#3377#0" expanded="true" />
@@ -377,12 +370,12 @@
       <workItem from="1575295216064" duration="21257000" />
       <workItem from="1575458633417" duration="1426000" />
       <workItem from="1575463122682" duration="100000" />
-      <workItem from="1575463236460" duration="17380000" />
+      <workItem from="1575463236460" duration="17747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40163000" />
+    <option name="totallyTimeSpent" value="40530000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -576,8 +569,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/day6/Day6.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1489">
-          <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="293">
+          <caret line="53" column="32" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3376#3377#0" expanded="true" />
