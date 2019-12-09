@@ -28,7 +28,7 @@ public class Day9 {
     public static class IntcodeComputer {
 
         private List<Long> programMem;
-        private Map<Long, Long> extraTerestrialMemory;
+        private Map<Long, Long> extraTerrestrialMemory;
         private int programCount;
 
         long relativeBase = 0;
@@ -43,7 +43,7 @@ public class Day9 {
                 .map(Long::valueOf)
                 .collect(Collectors.toList());
 
-            extraTerestrialMemory = new HashMap<>();
+            extraTerrestrialMemory = new HashMap<>();
 
         }
 
@@ -164,7 +164,7 @@ public class Day9 {
 
         long getParameterValueFromMemory(Long index) {
             if(index >= programMem.size()) {
-                return extraTerestrialMemory.getOrDefault(index, 0L);
+                return extraTerrestrialMemory.getOrDefault(index, 0L);
             }
             else {
                 return programMem.get(index.intValue());
@@ -173,7 +173,7 @@ public class Day9 {
 
         void setParameterValueToMemory(Long index, Long value){
             if(index >= programMem.size()) {
-                extraTerestrialMemory.put(index,value);
+                extraTerrestrialMemory.put(index,value);
             }
             else {
                 programMem.set(index.intValue(), value);
