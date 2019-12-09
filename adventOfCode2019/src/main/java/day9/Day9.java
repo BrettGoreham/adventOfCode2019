@@ -38,9 +38,6 @@ public class Day9 {
 
         private Queue<Long> inputs = new LinkedList<>();
         private Queue<Long> outputs = new LinkedList<>();
-        private List<Long> totalOutputs;
-
-        private String lastExitReason;
 
 
         IntcodeComputer(String instructionSet) {
@@ -49,25 +46,23 @@ public class Day9 {
                 .map(Long::valueOf)
                 .collect(Collectors.toList());
 
-            totalOutputs = new ArrayList<>();
             extraTerestrialMemory = new HashMap<>();
 
         }
 
-        public void addInput(Long input) {
+        void addInput(Long input) {
             inputs.add(input);
         }
 
-        public Queue<Long> getOutputs() {
+        Queue<Long> getOutputs() {
             return outputs;
         }
 
-        public void runProgramUntilBlocksOrExits() {
-            lastExitReason = runProgram();
+        void runProgramUntilBlocksOrExits() {
+            runProgram();
         }
 
         private String runProgram() {
-
             while (true) {
                 long instruction = programMem.get(programCount++);
 
@@ -108,9 +103,6 @@ public class Day9 {
                     setParameterValueToMemory(finalPosition, valueToSetToFinalPosition);
                 }
                 else if (operationCode == 3 || operationCode == 4) {
-
-
-
                     if (operationCode == 3) {
                         if (inputs.size() == 0) {
                             programCount -= 2; //try this again if this gets ran again!
@@ -125,19 +117,8 @@ public class Day9 {
                         }
                     }
                     else if (operationCode == 4) {
-                        long parameter1 = programMem.get(programCount++);
-                        long output;
-                        if(parameterModes[0] == 0) {
-                            output = getParameterValueFromMemory(parameter1);
-                        }
-                        else if (parameterModes[0] == 1 ) {
-                            output = parameter1;
-                        }
-                        else {
-                            output = getParameterValueFromMemory(relativeBase + parameter1);
-                        }
+                        long output = getParameterValue(parameterModes[0], programCount++);
                         outputs.add(output);
-                        totalOutputs.add(output);
                     }
                 }
                 else if (operationCode == 5 || operationCode == 6) {
@@ -156,16 +137,7 @@ public class Day9 {
                     }
                 }
                 else if (operationCode == 9) {
-                    long parameter1 = programMem.get(programCount++);
-
-                    if(parameterModes[0] == 0) {
-                        parameter1 = getParameterValueFromMemory(parameter1);
-                    }
-                    else if (parameterModes[0] == 2) {
-                        parameter1 = getParameterValueFromMemory((relativeBase + parameter1));
-                    }
-
-                    relativeBase += parameter1;
+                    relativeBase += getParameterValue(parameterModes[0], programCount++);
                 }
                 else {
                     throw new RuntimeException("unexpected Opcode");
@@ -179,7 +151,6 @@ public class Day9 {
 
 
         long getParameterValue(long parameterMode, long paramValue) {
-
             if(parameterMode == 0) {
                 return getParameterValueFromMemory((getParameterValueFromMemory(paramValue)));
             }
@@ -194,7 +165,7 @@ public class Day9 {
             }
         }
 
-        public long getParameterValueFromMemory(Long index) {
+        long getParameterValueFromMemory(Long index) {
             if(index >= programMem.size()) {
                 return extraTerestrialMemory.getOrDefault(index, 0L);
             }
@@ -203,7 +174,7 @@ public class Day9 {
             }
         }
 
-        public void setParameterValueToMemory(Long index, Long value){
+        void setParameterValueToMemory(Long index, Long value){
             if(index >= programMem.size()) {
                 extraTerestrialMemory.put(index,value);
             }
