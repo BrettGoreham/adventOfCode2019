@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Day7 {
 
     private static String resourceDirectory = "src/main/resources/day7/";
-    public static String inputFile = resourceDirectory + "day7Program.txt";
+    private static String inputFile = resourceDirectory + "day7Program.txt";
     public static String testFile1 = resourceDirectory + "day7Test.txt";
     public static String testFile2 = resourceDirectory + "day7Test2.txt";
     public static String testFile3 = resourceDirectory + "day7Test3.txt";

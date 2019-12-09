@@ -3,7 +3,6 @@ package day8;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.FileReader;
 import java.util.*;
