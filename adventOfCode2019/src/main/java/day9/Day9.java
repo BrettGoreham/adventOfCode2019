@@ -1,8 +1,5 @@
 package day9;
 
-
-
-
 import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
