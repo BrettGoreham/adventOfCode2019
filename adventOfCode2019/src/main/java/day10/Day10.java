@@ -15,9 +15,12 @@ public class Day10 {
     public static String testFile5 = resourceDirectory + "day10TestInput5.txt";
     public static String testFile6 = resourceDirectory + "day10TestInputPart2.txt";
 
+    public static boolean debugMode = false;
+
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(new FileReader(inputFile));
         List<Asteroid> asteroids = getAsteroidFromInput(scanner);
+
 
         for (Asteroid asteroid : asteroids) {
             asteroid.populateAsteroidSlopeChart(asteroids);
@@ -25,8 +28,10 @@ public class Day10 {
 
         Asteroid maxSightLines = asteroids.stream().max(Comparator.comparing(Asteroid::getSightLinesToOtherAsteroids)).get();
 
-        System.out.println("Asteroid " + maxSightLines.toString() + " has the most sight lines with : " +maxSightLines.sightLinesToOtherAsteroids);
-        maxSightLines.destroyAllAsteroidsInSlopeMapInOrder();
+        System.out.println("Asteroid " + maxSightLines.toString() + " has the most sight lines with : " + maxSightLines.sightLinesToOtherAsteroids); //part1
+        List<Asteroid> destroyedAsteroids = maxSightLines.destroyAllAsteroidsInSlopeMapInOrder(debugMode);
+
+        System.out.println("Asteroid " + destroyedAsteroids.get(200 - 1) + " was the 200th to be destroyed" ); //part2
     }
 
     private static List<Asteroid> getAsteroidFromInput(Scanner scanner){
@@ -53,10 +58,10 @@ public class Day10 {
     }
 
     private static void assertLineLengthsAreAllTheSame(List<Integer> lineLengths) {
-        Integer firstLineLength = lineLengths.get(0);
+        int firstLineLength = lineLengths.get(0);
 
         for(int i = 1; i < lineLengths.size(); i++) {
-            if(firstLineLength!= lineLengths.get(i)) {
+            if(firstLineLength != lineLengths.get(i)) {
                 throw new RuntimeException("Input lines are not a rectangle.");
             }
         }
@@ -68,12 +73,12 @@ public class Day10 {
         private Map<Double, List<Asteroid>> asteroidSlopeMap;
         private int sightLinesToOtherAsteroids;
 
-        public Asteroid(int xCord, int yCord) {
+        Asteroid(int xCord, int yCord) {
             this.xCord = xCord;
             this.yCord = yCord;
         }
 
-        public int getSightLinesToOtherAsteroids() {
+        int getSightLinesToOtherAsteroids() {
             return sightLinesToOtherAsteroids;
         }
 
@@ -125,11 +130,12 @@ public class Day10 {
             return countOfAsteroidsThatCanBeSeen;
         }
 
-        private void destroyAllAsteroidsInSlopeMapInOrder() {
+        private List<Asteroid> destroyAllAsteroidsInSlopeMapInOrder(boolean debugMode) {
+            List<Asteroid> removedSet = new ArrayList<>();
             List<Double> keySet = asteroidSlopeMap.keySet().stream().sorted(Comparator.comparingDouble(o -> o)).collect(Collectors.toList());
 
             int destructionNum = 1;
-            boolean aboveMode = false;
+            boolean belowMode = false;
             boolean done = false;
             while (!done) {
                 done = true;
@@ -138,14 +144,18 @@ public class Day10 {
                     List<Asteroid> asteroidsInSlope = asteroidSlopeMap.get(key);
                     int thisIndex = asteroidsInSlope.indexOf(this);
 
-                    if(aboveMode) {
+                    if(belowMode) {
                         if(thisIndex != 0) {
-                            printDestroyedAsteroid(asteroidsInSlope.remove(thisIndex -1), destructionNum++);
+                            Asteroid removed = asteroidsInSlope.remove(thisIndex - 1);
+                            printDestroyedAsteroid(removed, destructionNum++, debugMode);
+                            removedSet.add(removed);
                         }
                     }
                     else {
                         if(thisIndex != asteroidsInSlope.size() - 1) {
-                            printDestroyedAsteroid(asteroidsInSlope.remove(thisIndex + 1), destructionNum++);
+                            Asteroid removed = asteroidsInSlope.remove(thisIndex + 1);
+                            printDestroyedAsteroid(removed, destructionNum++, debugMode);
+                            removedSet.add(removed);
                         }
                     }
                     if(asteroidsInSlope.size() > 1) {
@@ -153,21 +163,21 @@ public class Day10 {
                     }
                 }
 
-                aboveMode = !aboveMode;
+                belowMode = !belowMode;
             }
+            return removedSet;
         }
 
-        private void printDestroyedAsteroid(Asteroid remove, int i) {
-            System.out.println("Asteroid " + remove.toString() + "it was number " + i + " To Be Destroyed");
+        private void printDestroyedAsteroid(Asteroid remove, int i, boolean debugMode) {
+            if (debugMode) {
+                System.out.println("Asteroid " + remove.toString() + "it was number " + i + " To Be Destroyed");
+            }
         }
 
         @Override
         public boolean equals(Object obj) {
             Asteroid other = (Asteroid) obj;
-            if(this.xCord == other.xCord && this.yCord == other.yCord) {
-                return true;
-            }
-            return false;
+            return this.xCord == other.xCord && this.yCord == other.yCord;
         }
 
         @Override
