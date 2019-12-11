@@ -20,27 +20,7 @@ public class Day11 {
         paintyBoyPart2.paintAway();
 
         System.out.println("Part 2 starting to print");
-        printRobotsPaintBoard(paintyBoyPart2);
-    }
-
-    private static void printRobotsPaintBoard(LilPaintyRobot lilPaintyRobot) {
-        int minX = lilPaintyRobot.paintBoard.keySet().stream().map(Cord::getX).min(Integer::compareTo).get();
-        int maxX = lilPaintyRobot.paintBoard.keySet().stream().map(Cord::getX).max(Integer::compareTo).get();
-        int miny = lilPaintyRobot.paintBoard.keySet().stream().map(Cord::getY).min(Integer::compareTo).get();
-        int maxy = lilPaintyRobot.paintBoard.keySet().stream().map(Cord::getY).max(Integer::compareTo).get();
-        
-        for(int i = minX; i <= maxX; i++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for(int j = miny; j <= maxy; j++) {
-                if (PaintColor.WHITE == lilPaintyRobot.paintBoard.get(new Cord(i, j))) {
-                    stringBuilder.append("#");
-                }
-                else {
-                    stringBuilder.append(" ");
-                }
-            }
-            System.out.println(stringBuilder.toString());
-        }
+        paintyBoyPart2.printRobotsPaintBoard();
     }
 
     public static class LilPaintyRobot {
@@ -140,6 +120,26 @@ public class Day11 {
                     currentLocation = new Cord(currentLocation.x - 1, currentLocation.y);
                     break;
 
+            }
+        }
+
+        private void printRobotsPaintBoard() {
+            int minX = paintBoard.keySet().stream().map(Cord::getX).min(Integer::compareTo).get();
+            int maxX = paintBoard.keySet().stream().map(Cord::getX).max(Integer::compareTo).get();
+            int miny = paintBoard.keySet().stream().map(Cord::getY).min(Integer::compareTo).get();
+            int maxy = paintBoard.keySet().stream().map(Cord::getY).max(Integer::compareTo).get();
+
+            for(int i = minX; i <= maxX; i++) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int j = miny; j <= maxy; j++) {
+                    if (PaintColor.WHITE == paintBoard.get(new Cord(i, j))) {
+                        stringBuilder.append("#");
+                    }
+                    else {
+                        stringBuilder.append(" ");
+                    }
+                }
+                System.out.println(stringBuilder.toString());
             }
         }
     }
