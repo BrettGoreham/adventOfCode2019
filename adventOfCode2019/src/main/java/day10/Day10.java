@@ -132,7 +132,7 @@ public class Day10 {
 
         private List<Asteroid> destroyAllAsteroidsInSlopeMapInOrder(boolean debugMode) {
             List<Asteroid> removedSet = new ArrayList<>();
-            List<Double> keySet = asteroidSlopeMap.keySet().stream().sorted(Comparator.comparingDouble(o -> o)).collect(Collectors.toList());
+            List<Double> keySet = asteroidSlopeMap.keySet().stream().sorted(Comparator.comparingDouble(o -> o)).collect(Collectors.toList()); // up in problem text is - infinity :D straight right is 0.
 
             int destructionNum = 1;
             boolean belowMode = false;
