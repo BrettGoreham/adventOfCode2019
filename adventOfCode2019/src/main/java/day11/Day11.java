@@ -126,13 +126,13 @@ public class Day11 {
         private void printRobotsPaintBoard() {
             int minX = paintBoard.keySet().stream().map(Cord::getX).min(Integer::compareTo).get();
             int maxX = paintBoard.keySet().stream().map(Cord::getX).max(Integer::compareTo).get();
-            int miny = paintBoard.keySet().stream().map(Cord::getY).min(Integer::compareTo).get();
-            int maxy = paintBoard.keySet().stream().map(Cord::getY).max(Integer::compareTo).get();
+            int minY = paintBoard.keySet().stream().map(Cord::getY).min(Integer::compareTo).get();
+            int maxY = paintBoard.keySet().stream().map(Cord::getY).max(Integer::compareTo).get();
 
-            for(int i = minX; i <= maxX; i++) {
+            for(int i = maxY; i >= minY; i--) { // Y is upside down because max x is lowest value so have to flip it
                 StringBuilder stringBuilder = new StringBuilder();
-                for(int j = miny; j <= maxy; j++) {
-                    if (PaintColor.WHITE == paintBoard.get(new Cord(i, j))) {
+                for(int j = minX; j <= maxX; j++) {
+                    if (PaintColor.WHITE == paintBoard.get(new Cord(j, i))) {
                         stringBuilder.append("#");
                     }
                     else {
