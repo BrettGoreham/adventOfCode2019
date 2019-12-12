@@ -70,10 +70,10 @@ public class Day12 {
         List<Integer> initialZState = moonList.stream().map(moon -> moon.position.z).collect(Collectors.toUnmodifiableList());
         List<Integer> initialZVeloState = moonList.stream().map(moon -> moon.zVelocity).collect(Collectors.toUnmodifiableList());
 
-        int round = 0;
-        int xCycleFreq = -1;
-        int yCycleFreq = -1;
-        int zCycleFreq = -1;
+        long round = 0;
+        long xCycleFreq = -1;
+        long yCycleFreq = -1;
+        long zCycleFreq = -1;
 
         boolean cyclesFound = false;
         while(!cyclesFound) {
@@ -118,17 +118,19 @@ public class Day12 {
         System.out.println("When will the moons align again: " + calcLeastCommonMultiple(xCycleFreq,yCycleFreq,zCycleFreq) );
     }
 
-    private static int backToInitialSet(List<Integer> initialSet, List<Integer> initialSetVelo, List<Integer> currentSet, List<Integer> currentSetVelo, int round) {
+    private static long backToInitialSet(List<Integer> initialSet, List<Integer> initialSetVelo, List<Integer> currentSet, List<Integer> currentSetVelo, long round) {
         if(initialSet.equals(currentSet) && currentSetVelo.equals(initialSetVelo)) {
             return round;
         }
         return -1;
     }
 
-    private static long calcLeastCommonMultiple(long xCycle, long yCycle, long zCycle) {
-        long xyLeastCommonMultiple = (xCycle * yCycle) / calcGreatestCommonDivisor(xCycle, yCycle);
-
-        return (xyLeastCommonMultiple * zCycle) / calcGreatestCommonDivisor(xyLeastCommonMultiple, zCycle);
+    private static long calcLeastCommonMultiple(Long... values) {
+        long val = values[0];
+        for(int i = 1; i < values.length; i++) {
+            val =  (val * values[i]) / calcGreatestCommonDivisor(val, values[i]);
+        }
+        return val;
     }
 
     private static long calcGreatestCommonDivisor(long x, long y) {
