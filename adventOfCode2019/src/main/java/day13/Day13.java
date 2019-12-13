@@ -1,7 +1,5 @@
 package day13;
 
-
-import day12.Day12;
 import intcodeComputer.IntcodeComputer;
 
 import java.io.FileNotFoundException;
@@ -39,8 +37,6 @@ public class Day13 {
         Map<Position, Tile> board = new HashMap<>();
         while(notDone) {
             String exitCode = computer.runProgram();
-
-
             addTilesToBoard(computer.getOutputs(), board, scoreBoard);
 
             boolean blocksAllBroken = board.values().stream().noneMatch(x -> x == Tile.BLOCK);
