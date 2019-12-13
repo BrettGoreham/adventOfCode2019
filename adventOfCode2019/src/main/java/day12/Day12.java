@@ -14,7 +14,6 @@ public class Day12 {
 
 
     public static void main(String[] args) throws Exception{
-
         System.out.println("Starting Part 1:");
         findPart1();
 
