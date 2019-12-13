@@ -9,32 +9,35 @@ import java.util.*;
 public class Day13 {
 
     private static String resourceDirectory = "src/main/resources/day13/";
-    public static String inputFilePart1 = resourceDirectory + "day13InputPart1.txt";
-    public static String inputFilePart2 = resourceDirectory + "day13InputPart2.txt";
+    private static String inputFilePart1 = resourceDirectory + "day13InputPart1.txt";
+    private static String inputFilePart2 = resourceDirectory + "day13InputPart2.txt";
 
     public static void main(String[] args) throws Exception{
-
-        String instructionSet = new Scanner(new FileReader(inputFilePart1)).nextLine();
-        IntcodeComputer computer = new IntcodeComputer(instructionSet);
-
-        System.out.println(computer.runProgram());
-
-        Map<Position, Tile> board = new HashMap<>();
-        addTilesToBoard(computer.getOutputs(), board, null);
-        System.out.println(board);
-
-        System.out.println("num of blocks : " +  board.values().stream().filter(x -> x == Tile.BLOCK).count());
-
+        doPartOne();
         doPartTwo();
     }
 
-    private static void doPartTwo() throws FileNotFoundException {
-        String instructionSet = new Scanner(new FileReader(inputFilePart2)).nextLine();
-        IntcodeComputer computer = new IntcodeComputer(instructionSet);
+    private static void doPartOne() throws FileNotFoundException {
+        System.out.println("Starting Part One");
 
-        boolean notDone = true;
+        IntcodeComputer computer = new IntcodeComputer(new Scanner(new FileReader(inputFilePart1)).nextLine());
+        computer.runProgram();
+
+        Map<Position, Tile> board = new HashMap<>();
+        addTilesToBoard(computer.getOutputs(), board, null);
+
+        System.out.println("num of blocks : " +  board.values().stream().filter(x -> x == Tile.BLOCK).count());
+    }
+
+    private static void doPartTwo() throws FileNotFoundException {
+        System.out.println("Starting Part Two");
+
+        IntcodeComputer computer = new IntcodeComputer(new Scanner(new FileReader(inputFilePart2)).nextLine());
+
+
         ScoreBoard scoreBoard = new ScoreBoard();
         Map<Position, Tile> board = new HashMap<>();
+        boolean notDone = true;
         while(notDone) {
             String exitCode = computer.runProgram();
             addTilesToBoard(computer.getOutputs(), board, scoreBoard);
@@ -54,7 +57,6 @@ public class Day13 {
         }
 
         System.out.println("Final Score After All blocks Are Broken: " + scoreBoard.getScore());
-
     }
 
     private static long findInputForComputer(Map<Position, Tile> board) {
@@ -132,8 +134,7 @@ public class Day13 {
 
         @Override
         public int hashCode() {
-            Integer integer = Math.toIntExact(x + y);
-            return integer;
+            return Math.toIntExact(x + y);
         }
 
         public String toString(){
