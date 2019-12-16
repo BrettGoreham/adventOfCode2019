@@ -33,10 +33,9 @@ public class Day13 {
         System.out.println("Starting Part Two");
 
         IntcodeComputer computer = new IntcodeComputer(new Scanner(new FileReader(inputFilePart2)).nextLine());
-
-
         ScoreBoard scoreBoard = new ScoreBoard();
         Map<Position, Tile> board = new HashMap<>();
+
         boolean notDone = true;
         while(notDone) {
             String exitCode = computer.runProgram();
@@ -96,7 +95,6 @@ public class Day13 {
         public long getScore() {
             return score;
         }
-
     }
 
     public enum Tile{
@@ -114,7 +112,6 @@ public class Day13 {
         public static Tile getFromId(long idToGet){
             return Arrays.stream(Tile.values()).filter(x -> x.id == idToGet).findFirst().get();
         }
-
     }
 
     public static class Position {
